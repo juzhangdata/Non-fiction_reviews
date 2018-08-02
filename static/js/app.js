@@ -1,21 +1,23 @@
 // sum function
-function sum(key_name){
-    var initialValue = 0;
-    var sum = data.reduce(function (accumulator, currentValue) {
-        return accumulator + currentValue[key_name];
-    },initialValue)
+function count(data,key){
+    var sum = data.map(d => d[key]).reduce((acc, current) => current + acc);
+    return sum / data.length
 }
 
-d3.json("//books.json", function(error, data) {
+var url = "https://raw.githubusercontent.com/juzhangdata/Non-fiction_reviews/master/books.json"
 
-    var key_names_a = ["5_star_a",
+d3.csv(url).then(function(data){
+
+    console.log(data)
+
+    var keys_a = ["5_star_a",
     "4_star_a",
     "3_star_a",
     "2_star_a",
     "1_star_a"
     ]
 
-    var key_names_g = [
+    var keys_g = [
     "5_star_g",
     "4_star_g",
     "3_star_g",
@@ -25,7 +27,7 @@ d3.json("//books.json", function(error, data) {
 
     var trace1 = {
         x:[5,4,3,2,1],
-        y:key_names_a.map(d=>sum(d)),
+        y: keys_g.map(x => count(data,x)),
         type:"bar"
         };
         
